@@ -24,7 +24,7 @@ app.use(cors({
 }))
 
 app.get('/', (req, res) => res.send('Server is running on port: ' + port))
-app.get("/health", (req, res) => {
+app.get("/healthz", (req, res) => {
     res.status(200).json({
         status: "OK",
         uptime: process.uptime(),                

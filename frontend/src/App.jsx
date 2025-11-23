@@ -6,6 +6,8 @@ import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import SignUp from './Pages/SignUp/SignUp';
 import { Navbar } from './components/Menu/Navbar/Navbar';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import URLDetails from './Pages/URLDetails/URLDetails';
 
 function App() {
 
@@ -13,7 +15,8 @@ function App() {
     <>
       <Navbar />
       <Routes>
-        <Route path='/' element={<Home/>} />
+        <Route path='/' element={<PrivateRoute><Home/></PrivateRoute>} />
+        <Route path='/url/:id' element={<PrivateRoute><URLDetails/></PrivateRoute>} />
         <Route path='/login' element={<Login/>} />
         <Route path='/signup' element={<SignUp/>} />
       </Routes>

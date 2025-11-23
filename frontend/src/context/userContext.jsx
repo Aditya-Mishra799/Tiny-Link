@@ -12,7 +12,9 @@ export const UserProvider = ({ children }) => {
     const fetchUser = async () => {
         setLoading(true)
         try {
-            const response = await fetch(getApiURL('/api/auth/user'));
+            const response = await fetch(getApiURL('/api/auth/user'), {
+                credentials: 'include'
+            });
             if (!response.ok) {
                 navigate('/login');
                 return;

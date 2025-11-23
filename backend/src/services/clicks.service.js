@@ -47,4 +47,73 @@ const logClick = async (req, urlID) => {
 
 }
 
-export { logClick };
+const getClicksByURLID = async (urlID, skip, limit) => {
+    const query = `
+        SELECT id, ip_address, user_agent, device_type, os_used, browser,
+               country, region, city, latitude, longitude, referrer, created_at
+        FROM url_clicks
+        WHERE url_id = $1
+        ORDER BY created_at DESC
+        OFFSET $2 LIMIT $3
+    `;
+    const countQuery = 'SELECT COUNT(*) AS total FROM url_clicks WHERE url_id = $1';
+    const values = [urlID, skip, limit];
+    const countValues = [urlID];
+
+    try {
+        const { rows } = await pool.query(query, values);
+        const { rows: countRows } = await pool.query(countQuery, countValues);
+        return { clicks: rows, total: countRows[0]?.total || 0 };
+    } catch (error) {
+        console.error("Failed to get clicks for URL:", error);
+        throw error;
+    }
+};
+
+const getClickStatsByURLID = async (urlID) => {
+    const deviceQuery = `
+        SELECT device_type, COUNT(*) as count
+        FROM url_clicks
+        WHERE url_id = $1
+        GROUP BY device_type
+    `;
+    const browserQuery = `
+        SELECT browser, COUNT(*) as count
+        FROM url_clicks
+        WHERE url_id = $1
+        GROUP BY browser
+    `;
+    const osQuery = `
+        SELECT os_used, COUNT(*) as count
+        FROM url_clicks
+        WHERE url_id = $1
+        GROUP BY os_used
+    `;
+    const geoQuery = `
+        SELECT country, region, city, latitude, longitude, COUNT(*) as count
+        FROM url_clicks
+        WHERE url_id = $1 AND latitude IS NOT NULL AND longitude IS NOT NULL
+        GROUP BY country, region, city, latitude, longitude
+    `;
+
+    try {
+        const [deviceRes, browserRes, osRes, geoRes] = await Promise.all([
+            pool.query(deviceQuery, [urlID]),
+            pool.query(browserQuery, [urlID]),
+            pool.query(osQuery, [urlID]),
+            pool.query(geoQuery, [urlID])
+        ]);
+
+        return {
+            byDevice: deviceRes.rows,
+            byBrowser: browserRes.rows,
+            byOS: osRes.rows,
+            byGeo: geoRes.rows
+        };
+    } catch (error) {
+        console.error("Failed to get click stats:", error);
+        throw error;
+    }
+};
+
+export { logClick, getClicksByURLID, getClickStatsByURLID };

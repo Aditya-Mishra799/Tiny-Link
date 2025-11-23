@@ -5,6 +5,7 @@ const router = express.Router();
 router.use(requireAuth)
 router.post("/", addURL);
 router.get("/", getUserURLs);
+router.get("/:id/stats", getURLStats);
 router.get("/:id", getURL);
 router.delete("/:id", inActivateURL);
 export default router;

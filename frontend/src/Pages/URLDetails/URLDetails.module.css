@@ -1,0 +1,313 @@
+.container {
+    padding: 2em;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.backBtn {
+    background-color: #374151;
+    color: white;
+    padding: 0.6em 1.2em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    margin-bottom: 1.5em;
+    transition: background-color 0.2s ease;
+}
+
+.backBtn:hover {
+    background-color: #4b5563;
+}
+
+.header {
+    background-color: #f9fafb;
+    padding: 2em;
+    border-radius: 12px;
+    margin-bottom: 2em;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header h1 {
+    margin-bottom: 1em;
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.urlDisplay {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    margin-bottom: 2em;
+}
+
+.shortUrl,
+.longUrl {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+    flex-wrap: wrap;
+}
+
+.shortUrl label,
+.longUrl label {
+    font-weight: 600;
+    color: #4b5563;
+    min-width: 100px;
+}
+
+.shortUrl code {
+    background-color: #e0f2fe;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    color: #0c4a6e;
+}
+
+.longUrl a {
+    color: #2563eb;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+    word-break: break-all;
+}
+
+.longUrl a:hover {
+    text-decoration: underline;
+}
+
+.copyBtn {
+    background-color: #0284c7;
+    color: white;
+    padding: 0.4em 0.6em;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    transition: background-color 0.2s ease;
+}
+
+.copyBtn:hover {
+    background-color: #0369a1;
+}
+
+.statsOverview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1em;
+}
+
+.statCard {
+    background-color: white;
+    padding: 1.5em;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.statCard h3 {
+    font-size: 2rem;
+    color: #0c4a6e;
+    margin-bottom: 0.25em;
+}
+
+.statCard p {
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.chartsContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2em;
+    margin-bottom: 3em;
+}
+
+.chartCard {
+    background-color: white;
+    padding: 1.5em;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chartCard h2 {
+    margin-bottom: 1em;
+    color: #1f2937;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.geoCard {
+    background-color: white;
+    padding: 1.5em;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    grid-column: 1 / -1;
+}
+
+.geoCard h2 {
+    margin-bottom: 1em;
+    color: #1f2937;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.geoList {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 0.75em;
+}
+
+.geoItem {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75em 1em;
+    background-color: #f9fafb;
+    border-radius: 6px;
+    border: 1px solid #e5e7eb;
+}
+
+.geoItem .location {
+    color: #374151;
+    font-size: 0.9rem;
+}
+
+.geoItem .count {
+    color: #0c4a6e;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.clicksSection {
+    background-color: white;
+    padding: 2em;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.clicksSection h2 {
+    margin-bottom: 1em;
+    color: #1f2937;
+    font-weight: 600;
+}
+
+.empty {
+    text-align: center;
+    padding: 2em;
+    color: #6b7280;
+}
+
+.tableWrapper {
+    overflow-x: auto;
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
+
+.table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.table thead {
+    background-color: #1f2937;
+    color: white;
+}
+
+.table th {
+    padding: 1em;
+    text-align: left;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.table td {
+    padding: 1em;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+}
+
+.table tbody tr:hover {
+    background-color: #f9fafb;
+}
+
+.referrer a {
+    color: #2563eb;
+    text-decoration: none;
+}
+
+.referrer a:hover {
+    text-decoration: underline;
+}
+
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1em;
+    margin-top: 2em;
+    padding: 1em;
+}
+
+.pageBtn {
+    background-color: #1f2937;
+    color: white;
+    padding: 0.5em 1em;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.pageBtn:hover:not(:disabled) {
+    background-color: #374151;
+}
+
+.pageBtn:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+}
+
+.pageInfo {
+    color: #4b5563;
+    font-weight: 500;
+}
+
+@media (max-width: 768px) {
+    .container {
+        padding: 1em;
+    }
+
+    .header {
+        padding: 1.5em;
+    }
+
+    .chartsContainer {
+        grid-template-columns: 1fr;
+    }
+
+    .geoList {
+        grid-template-columns: 1fr;
+    }
+
+    .statsOverview {
+        grid-template-columns: 1fr;
+    }
+
+    .shortUrl,
+    .longUrl {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .table th,
+    .table td {
+        padding: 0.7em;
+        font-size: 0.8rem;
+    }
+}

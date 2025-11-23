@@ -29,7 +29,6 @@ const cookieOptions = {
     sameSite: "lax"
 }
 const login = async (req, res, next) => {
-    console.log(req)
     const { email, password } = req.body;
     try {
         const user = await getUserByEmail(email);

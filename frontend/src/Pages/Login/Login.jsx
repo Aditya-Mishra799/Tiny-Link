@@ -9,6 +9,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { NavLink, useNavigate } from 'react-router-dom';
 import getApiURL from '../../utils/getApiURl';
 import { toast } from "react-toastify"
+import { useUserContext } from '../../context/userContext';
 
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm({
@@ -16,10 +17,10 @@ const Login = () => {
   })
   const [loading, setLoading] = useState(false)
   const navigate = useNavigate()
+  const {setUser} = useUserContext()
   const onSubmit = async (data) => {
     setLoading(true)
     try {
-      console.log(data)
       const response = await fetch(getApiURL("/api/auth/login"), {
         method: "POST",
         body: JSON.stringify(data),
@@ -28,13 +29,13 @@ const Login = () => {
           "Content-Type": "application/json"
         }
       });
-
-      const json = await response.json()
-      console.log(json)
       if (!response.ok) {
         return toast.error(json.error.message || "Unable to login, please try again!")
       }
+      const json = await response.json()
+      setUser(json?.data?.user)
       navigate("/")
+      toast.success("Logged in successfully")
     } catch (error) {
       toast.error(error.message || "Unable to login, please try again!")
     }

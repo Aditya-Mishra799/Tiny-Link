@@ -7,15 +7,12 @@ const requireAuth = (req, res, next) => {
     }
     try {
         const payload = verifyAccessToken(token)
-        console.log("payload", payload)
         if (!payload || !payload?.userId) {
             throw new ApiError(401, "You are unauthorized, please login.", "UNAUTHORIZED")
         }
         req.user = { id: payload?.userId }
-        console.log(req.user)
         next()
     } catch (error) {
-        console.log("auth error", "in catch")
         next(error)
     }
 

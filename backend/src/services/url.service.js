@@ -37,11 +37,11 @@ const addURL = async (originalURL, userID, urlSHA1Digest, shortcode) => {
     }
 }
 const getURLByShortcode = async (shortcode) => {
-    const query = 'SELECT id, long_url, shortcode, user_id, is_active, created_at, clicks FROM urls WHERE shortcode = $1';
+    const query = 'SELECT id, long_url, shortcode, user_id, is_active, created_at, clicks FROM urls WHERE shortcode = $1 AND is_active = TRUE';
     const values = [shortcode];
     try {
         const { rows } = await pool.query(query, values);
-        if (rows.length === 0) {
+        if (rows.length === 0 || !rows[0].is_active) {
             throw new ApiError(404, "URL does not Exists", "URL not found.", { originalError: error });
         }
         return rows[0]
@@ -52,11 +52,20 @@ const getURLByShortcode = async (shortcode) => {
 
 }
 const getURLsByUserID = async (userID, skip, limit) => {
-    const query = "SELECT id, long_url, shortcode, user_id, is_active, created_at, clicks, last_clicked_at FROM urls WHERE user_id = $1"
-    const values = [userID];
+    const query = `SELECT id, long_url, shortcode, user_id, is_active, created_at, clicks, last_clicked_at, unique_clicks FROM urls 
+                    WHERE user_id = $1 AND is_active = TRUE
+                    OFFSET $2 LIMIT $3`
+    const countQuery = `
+            SELECT COUNT(*) AS total
+            FROM urls
+            WHERE user_id = $1 AND is_active = TRUE
+        `;
+    const countValues = [userID];
+    const values = [userID, skip, limit];
     try {
         const { rows } = await pool.query(query, values);
-        return rows;
+        const { rows: countRows } = await pool.query(countQuery, countValues);
+        return { urls: rows, total: countRows[0]?.total };
     } catch (error) {
         throw new ApiError(500, "Failed to get URLs for user", "DATABASE_ERROR", { originalError: error });
     }

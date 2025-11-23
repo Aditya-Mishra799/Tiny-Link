@@ -2,10 +2,8 @@ import urlServices from "../services/url.service.js";
 import ApiError from "../utils/ApiError.js";
 import { getSHA1Digest } from "../utils/sha1.js";
 import { encode } from "../utils/base62.js";
-import {logClick} from "../services/clicks.service.js";
+import { logClick } from "../services/clicks.service.js";
 const addURL = async (req, res, next) => {
-    console.log("EXECuting 1")
-    console.log("body", req?.body)
     const { url } = req.body;
     const userId = req.user.id;
     if (!url) {
@@ -59,7 +57,24 @@ const inActivateURL = async (req, res, next) => {
         next(error)
     }
 }
-const getUserURLs = async (req, res, next) => { }
+const getUserURLs = async (req, res, next) => {
+    let { page, limit } = req.query
+    page = parseInt(page) || 1
+    limit = parseInt(limit) || 10
+
+    let skip = (page - 1) * limit
+    const userID = req.user.id
+    try {
+        const urls = await urlServices.getURLsByUserID(userID, skip, limit)
+        console.log("urls", urls)
+        return res.status(200).json({
+            success: true,
+            data: urls
+        })
+    } catch (error) {
+        next(error)
+    }
+}
 const getURL = async (req, res, next) => { }
 const getURLStats = async (req, res, next) => { }
 

@@ -36,10 +36,10 @@ const logClick = async (req, urlID) => {
         clickData.referrer,
     ];
     try {
-        await pool.query(query, values);
-        // skip incrementing click count if ip address is missing
+         // skip incrementing click count if ip address is missing or same ip has already visited
         const ipExists = clickData?.ip_address ? await checkIfIPExistsForURL(urlID, clickData.ip_address) : true;
         await urlServices.incrementClickCount(urlID, ipExists);
+        await pool.query(query, values);
 
     } catch (error) {
         console.error("Failed to log click data:", error);

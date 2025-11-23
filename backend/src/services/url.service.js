@@ -2,7 +2,7 @@ import pool from "../config/db.js";
 import ApiError from "../utils/ApiError.js";
 
 const toggleURLActivation = async (urlID, isActive) => {
-    const query = 'UPDATE urls SET is_active = $1, WHERE id = $2 RETURNING id, long_url, shortcode, user_id, is_active';
+    const query = 'UPDATE urls SET is_active = $1 WHERE id = $2 RETURNING id, long_url, shortcode, user_id, is_active';
     const values = [isActive, urlID];
     try {
         const { rows } = await pool.query(query, values);
@@ -42,11 +42,14 @@ const getURLByShortcode = async (shortcode) => {
     try {
         const { rows } = await pool.query(query, values);
         if (rows.length === 0 || !rows[0].is_active) {
-            throw new ApiError(404, "URL does not Exists", "URL not found.", { originalError: error });
+            throw new ApiError(404, "URL does not Exists", "URL not found.");
         }
         return rows[0]
     }
     catch (error) {
+        if (error instanceof ApiError) {
+            throw error
+        }
         throw new ApiError(500, "Failed to get URL by shortcode", "DATABASE_ERROR", { originalError: error });
     }
 

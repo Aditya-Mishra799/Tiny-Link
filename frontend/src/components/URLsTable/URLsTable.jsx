@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './URLsTable.module.css';
 import getApiURL from '../../utils/getApiURl';
 import { toast } from 'react-toastify';
-import { Trash2, ExternalLink } from 'lucide-react';
+import { Trash2, ExternalLink, Copy } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const URLsTable = ({ refreshTrigger }) => {
@@ -65,7 +65,12 @@ const URLsTable = ({ refreshTrigger }) => {
     if (loading) {
         return <div className={styles.loading}>Loading...</div>;
     }
-
+    const copyLink = (e, link) => {
+        e.stopPropagation()
+        navigator.clipboard.writeText(link);
+        toast.success("Link copied successfully!")
+    }
+    
     return (
         <div className={styles.container}>
             <h2>Your Shortened URLs</h2>
@@ -77,7 +82,7 @@ const URLsTable = ({ refreshTrigger }) => {
                         <table className={styles.table}>
                             <thead>
                                 <tr>
-                                    <th>Short Code</th>
+                                    <th>Short Link</th>
                                     <th>Original URL</th>
                                     <th>Clicks</th>
                                     <th>Unique Clicks</th>
@@ -88,8 +93,19 @@ const URLsTable = ({ refreshTrigger }) => {
                             <tbody>
                                 {urls.map((url) => (
                                     <tr key={url.id} onClick={() => handleRowClick(url.id)} className={styles.clickableRow}>
-                                        <td>
-                                            <code className={styles.shortcode}>{url.shortcode}</code>
+                                        <td className={styles.shortLink}>
+                                            <div className={styles.shortLinkWrapper} title={`${import.meta.env.VITE_BASE_URL}/${url.shortcode}`}>
+                                                <code className={styles.shortcode}>
+                                                    {import.meta.env.VITE_BASE_URL}/{url.shortcode}
+                                                </code>
+
+                                                <button
+                                                    className={styles.copyBtn}
+                                                    onClick={(e) => copyLink(e, `${import.meta.env.VITE_BASE_URL}/${url.shortcode}`)}
+                                                >
+                                                   <Copy size={16} />
+                                                </button>
+                                            </div>
                                         </td>
                                         <td className={styles.longUrl}>
                                             <a href={url.long_url} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()}>

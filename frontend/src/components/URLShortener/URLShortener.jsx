@@ -40,7 +40,7 @@ const URLShortener = ({ onURLAdded }) => {
     };
 
     const copyToClipboard = () => {
-        const fullURL = `${window.location.origin}/${shortURL.shortcode}`;
+        const fullURL = `${import.meta.env.VITE_BASE_URL}/${shortURL.shortcode}`;
         navigator.clipboard.writeText(fullURL);
         toast.success('Copied to clipboard!');
     };
@@ -63,7 +63,7 @@ const URLShortener = ({ onURLAdded }) => {
                 <div className={styles.result}>
                     <h3>Your shortened URL:</h3>
                     <div className={styles.urlDisplay}>
-                        <code>{window.location.origin}/{shortURL.shortcode}</code>
+                        <code>{import.meta.env.VITE_BASE_URL}/{shortURL.shortcode}</code>
                         <button onClick={copyToClipboard} className={styles.copyBtn}>
                             Copy
                         </button>

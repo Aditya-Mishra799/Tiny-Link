@@ -1,4 +1,3 @@
-// a responsive nave bar component along with menu items to login, signup, logout if user is logged in, dashboard, add a new link to shorten etc
 import React, { useState } from 'react';
 import { Link } from 'lucide-react';
 import styles from './Navbar.module.css';

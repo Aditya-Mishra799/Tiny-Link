@@ -72,25 +72,25 @@ const getClicksByURLID = async (urlID, skip, limit) => {
 
 const getClickStatsByURLID = async (urlID) => {
     const deviceQuery = `
-        SELECT device_type, COUNT(*) as count
+        SELECT device_type, COUNT(*)::int as count
         FROM url_clicks
         WHERE url_id = $1
         GROUP BY device_type
     `;
     const browserQuery = `
-        SELECT browser, COUNT(*) as count
+        SELECT browser, COUNT(*)::int as count
         FROM url_clicks
         WHERE url_id = $1
         GROUP BY browser
     `;
     const osQuery = `
-        SELECT os_used, COUNT(*) as count
+        SELECT os_used, COUNT(*)::int as count
         FROM url_clicks
         WHERE url_id = $1
         GROUP BY os_used
     `;
     const geoQuery = `
-        SELECT country, region, city, latitude, longitude, COUNT(*) as count
+        SELECT country, region, city, latitude, longitude, COUNT(*)::int as count
         FROM url_clicks
         WHERE url_id = $1 AND latitude IS NOT NULL AND longitude IS NOT NULL
         GROUP BY country, region, city, latitude, longitude

@@ -12,7 +12,7 @@ const signup = async (req, res, next) => {
             throw new ApiError(400, "User with this email already exists", "USER_EXISTS");
         }
         const passwordHash = await hashPassword(password);
-        const {password_hash, ...rest} = await addUser(name, email, passwordHash);
+        const { password_hash, ...rest } = await addUser(name, email, passwordHash);
         return res.status(201).json({
             success: true,
             data: rest
@@ -39,7 +39,13 @@ const login = async (req, res, next) => {
         if (!passwordMatch) {
             throw new ApiError(401, "Invalid email or password", "INVALID_CREDENTIALS");
         }
-        res.cookie("token", generateAccessToken({ userId: user.id }, settings.cookieExpiry.timeString, cookieOptions),
+        res.cookie(
+            "token",
+            generateAccessToken(
+                { userId: user.id },
+                settings.cookieExpiry.timeString
+            ),
+            cookieOptions
         );
         res.status(200).json({
             success: true,

@@ -26,7 +26,7 @@ const cookieOptions = {
     httpOnly: true,
     maxAge: settings.cookieExpiry.timeMS,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "lax"
+    sameSite: "none"
 }
 const login = async (req, res, next) => {
     const { email, password } = req.body;

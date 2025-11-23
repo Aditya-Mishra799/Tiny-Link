@@ -14,12 +14,16 @@ function App() {
   return (
     <>
       <Navbar />
-      <Routes>
-        <Route path='/' element={<PrivateRoute><Home/></PrivateRoute>} />
-        <Route path='/url/:id' element={<PrivateRoute><URLDetails/></PrivateRoute>} />
-        <Route path='/login' element={<Login/>} />
-        <Route path='/signup' element={<SignUp/>} />
-      </Routes>
+      <div className='page'>
+        <Routes>
+
+          <Route path='/' element={<PrivateRoute><Home /></PrivateRoute>} />
+          <Route path='/url/:id' element={<PrivateRoute><URLDetails /></PrivateRoute>} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/signup' element={<SignUp />} />
+
+        </Routes>
+      </div>
       <ToastContainer
         position="top-right"
         autoClose={3000}

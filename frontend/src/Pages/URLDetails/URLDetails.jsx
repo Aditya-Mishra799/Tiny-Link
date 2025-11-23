@@ -229,6 +229,7 @@ const URLDetails = () => {
                                     <tr>
                                         <th>Time</th>
                                         <th>Location</th>
+                                        <th>IP Address</th>
                                         <th>Device</th>
                                         <th>Browser</th>
                                         <th>OS</th>
@@ -242,6 +243,7 @@ const URLDetails = () => {
                                             <td>
                                                 {click.city}, {click.country}
                                             </td>
+                                            <td>{click.ip_address || 'Unknown'}</td>
                                             <td>{click.device_type || 'Unknown'}</td>
                                             <td>{click.browser || 'Unknown'}</td>
                                             <td>{click.os_used || 'Unknown'}</td>

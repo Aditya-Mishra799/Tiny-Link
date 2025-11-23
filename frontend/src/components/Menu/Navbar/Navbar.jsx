@@ -29,7 +29,7 @@ export const Navbar = () => {
         {
             label: "Home",
             link: "/",
-            visible: true,
+            visible: !!user,
         },
         {
             label: "Login",

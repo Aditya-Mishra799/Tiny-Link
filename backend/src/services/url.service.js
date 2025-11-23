@@ -57,6 +57,7 @@ const getURLByShortcode = async (shortcode) => {
 const getURLsByUserID = async (userID, skip, limit) => {
     const query = `SELECT id, long_url, shortcode, user_id, is_active, created_at, clicks, last_clicked_at, unique_clicks FROM urls 
                     WHERE user_id = $1 AND is_active = TRUE
+                    ORDER BY created_at DESC
                     OFFSET $2 LIMIT $3`
     const countQuery = `
             SELECT COUNT(*) AS total

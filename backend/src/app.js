@@ -24,7 +24,19 @@ app.use(cors({
 }))
 
 app.get('/', (req, res) => res.send('Server is running on port: ' + port))
+app.get("/health", (req, res) => {
+    res.status(200).json({
+        status: "OK",
+        uptime: process.uptime(),                
+        timestamp: new Date().toISOString(),     
+        memory: process.memoryUsage(),          
+        pid: process.pid,                        
+        node_version: process.version,
+    });
+});
 app.get('/:code', redirectUser)
 app.use('/api', apiMainRouter)
 app.use(errorHandler)
+
+
 export default app

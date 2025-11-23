@@ -2,8 +2,9 @@ import {UAParser} from 'ua-parser-js';
 
 const captureClickData = async (req) => {
     const capturedData = {}
-
-    capturedData.ip_address = req.headers["x-forwarded-for"] || req.connection.remoteAddress;
+    const forwarded = req.headers["x-forwarded-for"];
+    const ip = forwarded ? forwarded.split(",")[0].trim() : req.socket.remoteAddress;
+    capturedData.ip_address = ip
 
     try {
         const res = await fetch('https://ipapi.co/' + capturedData.ip_address + '/json/')

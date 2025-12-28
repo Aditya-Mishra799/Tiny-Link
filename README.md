@@ -23,7 +23,7 @@ This repository contains a full-stack URL shortener application:
 - `backend/` — Express server providing authentication and URL management backed by PostgreSQL.
 - `frontend/` — React app (Vite) providing UI for signup, login, creating short links, and viewing link details and stats.
 - **Frontend Deployed Link:** https://tiny-linkly.vercel.app
--  **Backend Deployed Link:** https://tiny-link-rcl9.onrender.com
+-  **Backend Deployed Link:** https://tiny-link-backend-nu.vercel.app/
   > **Note:** You may need to wait a few seconds for the API to become responsive.  
 > Render deploys endpoints on-demand, so they can take a short time to spin up.
 
